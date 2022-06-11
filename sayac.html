@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayaç</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="gostergeAlani">
+        <table>
+            <tr>
+                <td>Sayaç</td>
+                <td><input type="number" id="degerAlani" value=0 readonly></td>
+            </tr>
+            <tr>
+                <td>Dışarıdan Ekle</td>
+                <td>
+                    <input type="number" id="eklenecekAlan" min="0">
+                    <button onclick="disaridanEkle()">Ekle</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Toplam</td>
+                <td><input type="number" id="toplam" value=0 readonly></td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        let deger = 0;
+        let toplamDeger = 0;
+
+        function artir() {
+            ++deger;
+            toplamDeger = document.getElementById("toplam").value;
+            ++toplamDeger;
+            document.getElementById("degerAlani").value = deger;
+            document.getElementById("toplam").value = toplamDeger;
+        }
+
+        function azalt() {
+            --deger;
+            if (deger < 0) {
+                deger = 0;
+                alert("DİKKAT : Sayaç alanının değeri 0 dan küçük olamaz!!!")
+            } else {
+                document.getElementById("degerAlani").value = deger;
+            }
+        }
+
+        function reset() {
+            deger = 0;
+            document.getElementById("degerAlani").value = 0;
+            document.getElementById("eklenecekAlan").value = 0;
+        }
+
+        function disaridanEkle() {
+
+            try {
+
+                if (isNaN(document.getElementById("eklenecekAlan").value)) throw "Sayısal değer girilmeli";
+                if (document.getElementById("eklenecekAlan").value == "") throw "Girilen değer boş";
+                if (document.getElementById("eklenecekAlan").value < 0) throw "Eklenecek değer 0'dan küçük olmaz";
+
+            } catch (error) {
+
+                alert("Hata : " + error);
+
+            } finally {
+
+                let disaridanEklenecekDeger = parseInt(document.getElementById("eklenecekAlan").value);
+                let toplamDeger = parseInt(document.getElementById("toplam").value);
+                document.getElementById("toplam").value = toplamDeger + disaridanEklenecekDeger;
+                document.getElementById("eklenecekAlan").value = 0;
+
+            }
+
+        }
+
+    </script>
+
+    <div id="butonAlani">
+        <button onclick="artir()">Artır</button>
+        <button onclick="azalt()">Azalt</button>
+        <button onclick="reset()">Sıfırla</button>
+    </div>
+</body>
+
+</html>
